@@ -15,7 +15,3 @@ class Driver:
         driver.maximize_window()
         driver.get(Driver.BASE_URL)
         return driver
-
-    @staticmethod
-    def tear_down():
-        Driver.web_driver().quit()

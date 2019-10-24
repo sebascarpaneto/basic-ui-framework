@@ -1,40 +1,27 @@
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+import pytest
+from driver_setup.driver import Driver
+from ali_express_page_objects.landing_page import close_pop_up, search_box, search, By
+from ali_express_page_objects.first_page import next_page_button
+from ali_express_page_objects.second_page import second_item
+from ali_express_page_objects.item_page import quantity_element
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.keys import Keys
 
-driver = webdriver.Chrome(ChromeDriverManager().install())
-driver.maximize_window()
-base_url = 'http://www.aliexpress.com'
-driver.get(base_url)
-driver.implicitly_wait(10)
-# Close pop up
-WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[5]/div/div/a'))).click()
-# driver.find_element_by_xpath('/html/body/div[5]/div/div/a').click()
-# Input Iphone on searchbox
-WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, 'search-key'))).send_keys('Iphone')
-# driver.find_element_by_id('search-key').send_keys('Iphone')
-# Click on Search
-WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="form-searchbar"]/div[1]/input'))).click()
-# driver.find_element_by_xpath('//*[@id="form-searchbar"]/div[1]/input').click()
-driver.implicitly_wait(10)
-# Close pop up
-WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[6]/div[2]/div/a'))).click()
-# driver.find_element_by_xpath('/html/body/div[6]/div[2]/div/a').click()
-# Click on next page
-# driver.find_element_by_xpath('/html/body/div[3]/div/div/div[2]/div[2]/div/div[3]/div/div[1]/div/button[2]').click()
-# driver.implicitly_wait(20)
-# Click on second item
-WebDriverWait(driver, 5).until(EC.element_to_be_clickable(
-    (By.XPATH, '//*[@id="root"]/div/div/div[2]/div[2]/div/div[2]/ul/li[2]/div/div[1]/a/img'))).click()
-# driver.find_element_by_xpath('//*[@id="root"]/div/div/div[2]/div[2]/div/div[2]/ul/li[2]/div/div[1]/a/img').click()
-driver.implicitly_wait(10)
-# Switch to new tab
-WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.TAG_NAME, 'body'))).send_keys(Keys.CONTROL + Keys.TAB)
-# driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.TAB)
-driver.implicitly_wait(10)
-WebDriverWait(driver, 5).until(EC.element_to_be_clickable(
-    (By.XPATH, '//*[@id="root"]/div/div[2]/div/div[2]/div[11]/span[1]/button'))).click()
-# driver.quit()
+driver = Driver.web_driver()
+switch_tab = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.TAG_NAME, 'body'))).send_keys(
+    Keys.CONTROL + Keys.TAB)
+
+
+@pytest.mark.deviget
+def ali_test():
+    WebDriverWait(driver, 5).until(EC.element_to_be_clickable(close_pop_up)).click()
+    WebDriverWait(driver, 5).until(EC.element_to_be_clickable(search_box)).send_keys('Iphone')
+    WebDriverWait(driver, 5).until(EC.element_to_be_clickable(search)).click()
+    WebDriverWait(driver, 5).until(EC.element_to_be_clickable(close_pop_up)).click()
+    WebDriverWait(driver, 5).until(EC.element_to_be_clickable(next_page_button)).click()
+    WebDriverWait(driver, 5).until(EC.element_to_be_clickable(second_item)).click()
+    switch_tab()
+    quantity = WebDriverWait(driver, 5).until(EC.element_to_be_clickable(quantity_element)).text()
+    # assert (quantity= 1,)
+    # driver.quit()
