@@ -1,17 +1,15 @@
+from env_conf import base_url
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-class Driver:
-    BROWSER = 'Chrome'
-    BASE_URL = 'http://www.aliexpress.com'
+class Driver(object):
+    BASE_URL = base_url
 
-    @staticmethod
-    def web_driver():
-        if Driver.BROWSER == 'Chrome':
-            driver = webdriver.Chrome(ChromeDriverManager().install())
-        else:
-            return 'Browser not supported'
-        driver.maximize_window()
-        driver.get(Driver.BASE_URL)
-        return driver
+    def __init__(self):
+        self.__driver = webdriver.Chrome(ChromeDriverManager().install())
+        self.__driver.maximize_window()
+        self.__driver.get(Driver.BASE_URL)
+
+    def driver(self):
+        return self.__driver
