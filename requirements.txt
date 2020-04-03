@@ -1,4 +1,3 @@
-assertpy
 pytest
 selenium
 webdriver_manager
