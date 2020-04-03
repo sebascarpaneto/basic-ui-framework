@@ -36,6 +36,7 @@ def ali_test():
     close_alert(close_pop_up_button_3)
     web_driver.switch_to.window(web_driver.window_handles[1])
     availability = web_driver.find_element(By.XPATH, '//*[@id="root"]/div/div[2]/div/div[2]/div[8]/div[2]/div').text
+    # Exclude chars from text
     stock_number = float(re.sub(r'[a-z]+', '', availability, re.I))
     assert stock_number > 0
     print(availability)
