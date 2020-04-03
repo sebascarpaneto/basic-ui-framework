@@ -10,6 +10,11 @@ class Driver(object):
         self.__driver = webdriver.Chrome(ChromeDriverManager().install())
         self.__driver.maximize_window()
         self.__driver.get(Driver.BASE_URL)
+        self.__driver.implicitly_wait(2)
 
     def driver(self):
         return self.__driver
+
+
+
+

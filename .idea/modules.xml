@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/deviget-exam.iml" filepath="$PROJECT_DIR$/.idea/deviget-exam.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/basic-ui-framework.iml" filepath="$PROJECT_DIR$/.idea/basic-ui-framework.iml" />
     </modules>
   </component>
 </project>
