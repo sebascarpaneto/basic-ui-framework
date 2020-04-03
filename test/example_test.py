@@ -1,5 +1,6 @@
 import pytest
 import re
+from env_conf import email, password
 from selenium.common.exceptions import TimeoutException
 from driver_setup.driver import Driver
 from selenium.webdriver.common.by import By
@@ -24,8 +25,8 @@ def ali_test():
     close_alert(close_pop_up_button_1)
     web_driver.find_element(By.XPATH, sign_in).click()
     web_driver.switch_to.frame(log_in_frame)
-    web_driver.find_element(By.XPATH, input_email).send_keys('scarpaneto@zenfolio.com')
-    web_driver.find_element(By.XPATH, input_password).send_keys('asd456')
+    web_driver.find_element(By.XPATH, input_email).send_keys(email)
+    web_driver.find_element(By.XPATH, input_password).send_keys(password)
     web_driver.find_element(By.XPATH, log_in_button).click()
     web_driver.switch_to.default_content()
     close_alert(close_pop_up_button_1)
